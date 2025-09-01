@@ -27,7 +27,6 @@ fun main() {
     scoreService.pointWonBy(game, "Player 1")
     println(scoreService.getScore(game))
 
-    println("Reseting the game...")
     scoreService.resetGame(game)
     println(scoreService.getScore(game))
 

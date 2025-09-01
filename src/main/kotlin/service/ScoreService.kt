@@ -38,6 +38,7 @@ class ScoreService {
     fun resetGame(game: Game) {
         game.player1.score = 0
         game.player2.score = 0
+        println("Reseting the game...")
         game.state = GameState.LOVE_LOVE
     }
 
