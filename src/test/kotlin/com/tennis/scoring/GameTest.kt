@@ -28,6 +28,30 @@ class GameTest {
         assertEquals("15 - Love", scoreService.getScore(game))
     }
 
+    @Test
+    fun `score should be 40-30`() {
+        val game = newGame()
+        repeat(3) { scoreService.pointWonBy(game, "Player 1") }
+        repeat(2) { scoreService.pointWonBy(game, "Player 2") }
+        assertEquals("40 - 30", scoreService.getScore(game))
+    }
+
+    @Test
+    fun `game should reach Deuce`() {
+        val game = newGame()
+        repeat(3) { scoreService.pointWonBy(game, "Player 1") }
+        repeat(3) { scoreService.pointWonBy(game, "Player 2") }
+        assertEquals("Deuce", scoreService.getScore(game))
+    }
+
+
+
+
+
+
+
+
+
 
 
 
