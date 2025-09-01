@@ -16,20 +16,20 @@ class GameTest {
     }
 
     @Test
-    fun `the initial score of the game is expected to be Love-Love`() {
+    fun `when the game starts, then the score should be Love-Love`() {
         val game = newGame()
         assertEquals("Love-Love", scoreService.getScore(game))
     }
 
     @Test
-    fun `the score updates correctly when a player scores`() {
+    fun `when a player scores a point, then the score updates accordingly`() {
         val game = newGame()
         scoreService.pointWonBy(game, "Player 1")
         assertEquals("15 - Love", scoreService.getScore(game))
     }
 
     @Test
-    fun `score should be 40-30`() {
+    fun `when one player has 40 and the other has 30, then the score should reflect 40-30`() {
         val game = newGame()
         repeat(3) { scoreService.pointWonBy(game, "Player 1") }
         repeat(2) { scoreService.pointWonBy(game, "Player 2") }
@@ -37,12 +37,16 @@ class GameTest {
     }
 
     @Test
-    fun `game should reach Deuce`() {
+    fun `when both players have 40 points, then the game should be Deuce`() {
         val game = newGame()
         repeat(3) { scoreService.pointWonBy(game, "Player 1") }
         repeat(3) { scoreService.pointWonBy(game, "Player 2") }
         assertEquals("Deuce", scoreService.getScore(game))
     }
+
+
+
+
 
 
 
