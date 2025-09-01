@@ -73,37 +73,11 @@ class GameTest {
         assertEquals("Results: The winner is Player 1", scoreService.getScore(game))
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Test
+    fun `when the game is reset, then the score should return to Love-Love`() {
+        val game = newGame()
+        scoreService.pointWonBy(game, "Player 1")
+        scoreService.resetGame(game)
+        assertEquals("Love-Love", scoreService.getScore(game))
+    }
 }
