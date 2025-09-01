@@ -35,6 +35,12 @@ class ScoreService {
         }
     }
 
+    fun resetGame(game: Game) {
+        game.player1.score = 0
+        game.player2.score = 0
+        game.state = GameState.LOVE_LOVE
+    }
+
     private fun updateGameState(game: Game) {
         val p1 = game.player1.score
         val p2 = game.player2.score
