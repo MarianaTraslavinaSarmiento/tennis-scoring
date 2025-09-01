@@ -2,12 +2,13 @@ package com.tennis.scoring.service
 
 import com.tennis.scoring.model.Game
 import com.tennis.scoring.model.GameState
+import com.tennis.scoring.model.Player
 import kotlin.math.abs
 
 class ScoreService {
 
     fun pointWonBy(game: Game, playerName: String) {
-        if (game.state == GameState.FINISHED) return
+        if (game.state is GameState.Finished) return
 
         val player = when (playerName) {
             game.player1.name -> game.player1
@@ -19,27 +20,25 @@ class ScoreService {
             player.score++
             updateGameState(game)
         } else {
-            println("It does not existe a player with that name: $playerName")
+            println("It does not exist a player with that name: $playerName")
         }
-
     }
 
     fun getScore(game: Game): String {
-        return when (game.state) {
-            GameState.LOVE_LOVE -> "Love-Love"
-            GameState.REGULAR -> "${mapPoints(game.player1.score)} - ${mapPoints(game.player2.score)}"
-            GameState.DEUCE -> "Deuce"
-            GameState.ADVANTAGE_PLAYER1 -> "${game.player1.name} has advantage"
-            GameState.ADVANTAGE_PLAYER2 -> "${game.player2.name} has advantage"
-            GameState.FINISHED -> "Results: The winner is ${winner(game)}"
+        return when (val state = game.state) {
+            is GameState.LoveLove -> "Love-Love"
+            is GameState.Regular -> "${mapPoints(game.player1.score)} - ${mapPoints(game.player2.score)}"
+            is GameState.Deuce -> "Deuce"
+            is GameState.Advantage -> "${state.player.name} has advantage"
+            is GameState.Finished -> "Results: The winner is ${state.winner.name}"
         }
     }
 
     fun resetGame(game: Game) {
         game.player1.score = 0
         game.player2.score = 0
-        println("Reseting the game...")
-        game.state = GameState.LOVE_LOVE
+        println("Resetting the game...")
+        game.state = GameState.LoveLove
     }
 
     private fun updateGameState(game: Game) {
@@ -47,31 +46,31 @@ class ScoreService {
         val scorePlayer2 = game.player2.score
 
         if (scorePlayer1 == 0 && scorePlayer2 == 0) {
-            game.state = GameState.LOVE_LOVE
+            game.state = GameState.LoveLove
             return
         }
 
         if (scorePlayer1 == 3 && scorePlayer2 == 3) {
-            game.state = GameState.DEUCE
+            game.state = GameState.Deuce
             return
         }
 
         if (scorePlayer1 >= 4 || scorePlayer2 >= 4) {
             val diff = scorePlayer1 - scorePlayer2
             game.state = when {
-                diff == 0 -> GameState.DEUCE
-                diff == 1 -> GameState.ADVANTAGE_PLAYER1
-                diff == -1 -> GameState.ADVANTAGE_PLAYER2
-                abs(diff) >= 2 -> GameState.FINISHED
-                else -> GameState.REGULAR
+                diff == 0 -> GameState.Deuce
+                diff == 1 -> GameState.Advantage(game.player1)
+                diff == -1 -> GameState.Advantage(game.player2)
+                abs(diff) >= 2 -> GameState.Finished(winner(game))
+                else -> GameState.Regular
             }
         } else {
-            game.state = GameState.REGULAR
+            game.state = GameState.Regular
         }
     }
 
-    private fun winner(game: Game): String {
-        return if (game.player1.score > game.player2.score) game.player1.name else game.player2.name
+    private fun winner(game: Game): Player {
+        return if (game.player1.score > game.player2.score) game.player1 else game.player2
     }
 
     private fun mapPoints(points: Int): String {
@@ -83,5 +82,4 @@ class ScoreService {
             else -> "40"
         }
     }
-
 }
