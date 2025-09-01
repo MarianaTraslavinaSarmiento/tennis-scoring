@@ -70,8 +70,12 @@ class GameTest {
         repeat(3) { scoreService.pointWonBy(game, "Player 2") }
         scoreService.pointWonBy(game, "Player 1")
         scoreService.pointWonBy(game, "Player 1")
-        assertEquals("Results: Winner is Player 1", scoreService.getScore(game))
+        assertEquals("Results: The winner is Player 1", scoreService.getScore(game))
     }
+
+
+
+
 
 
 
