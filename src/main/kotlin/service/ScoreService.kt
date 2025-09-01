@@ -24,7 +24,6 @@ class ScoreService {
 
     }
 
-
     private fun updateGameState(game: Game) {
         val p1 = game.player1.score
         val p2 = game.player2.score
@@ -51,6 +50,10 @@ class ScoreService {
         } else {
             game.state = GameState.REGULAR
         }
+    }
+
+    private fun winner(game: Game): String {
+        return if (game.player1.score > game.player2.score) game.player1.name else game.player2.name
     }
 
 }
