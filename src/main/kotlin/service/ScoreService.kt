@@ -42,21 +42,21 @@ class ScoreService {
     }
 
     private fun updateGameState(game: Game) {
-        val p1 = game.player1.score
-        val p2 = game.player2.score
+        val scorePlayer1 = game.player1.score
+        val scorePlayer2 = game.player2.score
 
-        if (p1 == 0 && p2 == 0) {
+        if (scorePlayer1 == 0 && scorePlayer2 == 0) {
             game.state = GameState.LOVE_LOVE
             return
         }
 
-        if (p1 == 3 && p2 == 3) {
+        if (scorePlayer1 == 3 && scorePlayer2 == 3) {
             game.state = GameState.DEUCE
             return
         }
 
-        if (p1 >= 4 || p2 >= 4) {
-            val diff = p1 - p2
+        if (scorePlayer1 >= 4 || scorePlayer2 >= 4) {
+            val diff = scorePlayer1 - scorePlayer2
             game.state = when {
                 diff == 0 -> GameState.DEUCE
                 diff == 1 -> GameState.ADVANTAGE_PLAYER1
