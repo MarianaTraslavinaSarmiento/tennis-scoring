@@ -24,6 +24,17 @@ class ScoreService {
 
     }
 
+    fun getScore(game: Game): String {
+        return when (game.state) {
+            GameState.LOVE_LOVE -> "Love-Love"
+            GameState.REGULAR -> ""
+            GameState.DEUCE -> "Deuce"
+            GameState.ADVANTAGE_PLAYER1 -> "Advantage ${game.player1.name}"
+            GameState.ADVANTAGE_PLAYER2 -> "Advantage ${game.player2.name}"
+            GameState.FINISHED -> "Results: Winner is ${winner(game)}"
+        }
+    }
+
     private fun updateGameState(game: Game) {
         val p1 = game.player1.score
         val p2 = game.player2.score
@@ -55,5 +66,7 @@ class ScoreService {
     private fun winner(game: Game): String {
         return if (game.player1.score > game.player2.score) game.player1.name else game.player2.name
     }
+
+
 
 }
