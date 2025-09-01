@@ -63,6 +63,16 @@ class GameTest {
         assertEquals("Deuce", scoreService.getScore(game))
     }
 
+    @Test
+    fun `when Player 1 scores while having Advantage, then Player 1 should win the game`() {
+        val game = newGame()
+        repeat(3) { scoreService.pointWonBy(game, "Player 1") }
+        repeat(3) { scoreService.pointWonBy(game, "Player 2") }
+        scoreService.pointWonBy(game, "Player 1")
+        scoreService.pointWonBy(game, "Player 1")
+        assertEquals("Results: Winner is Player 1", scoreService.getScore(game))
+    }
+
 
 
 
