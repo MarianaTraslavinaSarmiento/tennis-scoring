@@ -27,11 +27,11 @@ class ScoreService {
     fun getScore(game: Game): String {
         return when (game.state) {
             GameState.LOVE_LOVE -> "Love-Love"
-            GameState.REGULAR -> ""
+            GameState.REGULAR -> "${mapPoints(game.player1.score)} - ${mapPoints(game.player2.score)}"
             GameState.DEUCE -> "Deuce"
-            GameState.ADVANTAGE_PLAYER1 -> "Advantage ${game.player1.name}"
-            GameState.ADVANTAGE_PLAYER2 -> "Advantage ${game.player2.name}"
-            GameState.FINISHED -> "Results: Winner is ${winner(game)}"
+            GameState.ADVANTAGE_PLAYER1 -> "${game.player1.name} has advantage"
+            GameState.ADVANTAGE_PLAYER2 -> "${game.player2.name} has advantage"
+            GameState.FINISHED -> "Results: The winner is ${winner(game)}"
         }
     }
 
@@ -67,6 +67,14 @@ class ScoreService {
         return if (game.player1.score > game.player2.score) game.player1.name else game.player2.name
     }
 
-
+    private fun mapPoints(points: Int): String {
+        return when (points) {
+            0 -> "Love"
+            1 -> "15"
+            2 -> "30"
+            3 -> "40"
+            else -> "40"
+        }
+    }
 
 }
