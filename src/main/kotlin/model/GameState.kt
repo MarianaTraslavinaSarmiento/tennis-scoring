@@ -1,11 +1,9 @@
 package com.tennis.scoring.model
 
-enum class GameState {
-    LOVE_LOVE,
-    REGULAR,
-    DEUCE,
-    ADVANTAGE_PLAYER1,
-    ADVANTAGE_PLAYER2,
-    FINISHED
+sealed class GameState {
+    data object LoveLove : GameState()
+    data object Regular : GameState()
+    data object Deuce : GameState()
+    data class Advantage(val player: Player) : GameState()
+    data class Finished(val winner: Player) : GameState()
 }
-
