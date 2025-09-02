@@ -71,3 +71,16 @@ The `Main.kt` file is set up to simulate a sample match.
    ````kotlin
    scoreService.resetGame(game)
    println(scoreService.getScore(game))
+
+## Running the Tests
+
+This project uses JUnit for testing.
+
+To run the tests:
+1. Go to `src/test/kotlin/com/tennis/scoring/GameTest.kt`
+2. Inside the file, you will see the test functions (e.g., `testGameStartsAtLoveAll`).
+3. To run all tests in `GameTest`, click the **green play arrow** next to the class name `GameTest`.
+4. To run a single test, click the **green play arrow** next to the specific test function.
+5. IntelliJ will execute the tests, and the results will be shown in the **Run window** at the bottom of the IDE.  
+
+
